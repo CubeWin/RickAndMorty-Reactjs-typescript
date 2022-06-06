@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'AUDIOWIDE';
+  src: url('../public/fonts/Audiowide-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'OPENSANS';
+  src: url('../public/fonts/OpenSans-Regular.ttf');
+}
