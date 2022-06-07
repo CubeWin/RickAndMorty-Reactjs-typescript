@@ -41,7 +41,7 @@ const ReducerCharacter = (state: STATETYPE, action: ACTIONTYPE): STATETYPE => {
   }
 };
 
-const CharacterContext = createContext<IContext | null>(null);
+export const CharacterContext = createContext<IContext | null>(null);
 
 const StateCharacter = ({ children }: { children: ReactNode }) => {
   const initState = {

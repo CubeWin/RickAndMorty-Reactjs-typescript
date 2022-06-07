@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2015: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -24,11 +24,12 @@ module.exports = {
       {
         arrays: 'ignore',
         objects: 'ignore',
-        imports: 'never',
+        imports: 'ignore',
         exports: 'never',
         functions: 'never',
       },
     ],
+    'react/jsx-no-constructed-context-values': 'warn',
     'no-unused-vars': 'warn',
     'react/jsx-filename-extension': [
       1,

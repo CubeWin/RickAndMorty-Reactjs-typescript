@@ -1,11 +1,11 @@
 import Characters from '../components/Characters';
 import Character from '../components/Character';
-import StateCharacter from '../context/characters/StateCharacter';
+import PersonajeStats from '../context/characters/reducers';
 
 const Inicio = () => (
-  <StateCharacter>
+  <PersonajeStats>
     <Characters />
     <Character />
-  </StateCharacter>
+  </PersonajeStats>
 );
 export default Inicio;
