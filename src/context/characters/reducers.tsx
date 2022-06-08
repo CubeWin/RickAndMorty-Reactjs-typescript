@@ -9,7 +9,10 @@ type InitialStateType = {
   getPersonajes: (page: number) => void;
   // eslint-disable-next-line no-unused-vars
   getPersonaje: (id: number) => void;
+  // eslint-disable-next-line no-unused-vars
+  searchPersonaje: (id: string) => void;
 };
+
 type ACTIONTYPE =
   | { type: 'SELECT_CHARACTERS'; payload: IPersonaje[] }
   | { type: 'SELECT_CHARACTER'; payload: IPersonaje };
@@ -24,6 +27,7 @@ const initialState = {
   personaje: {} as IPersonaje,
   getPersonajes: (): void => {},
   getPersonaje: (): void => {},
+  searchPersonaje: (): void => {},
 };
 
 export const AppContext = createContext<InitialStateType>(initialState);
@@ -57,15 +61,6 @@ const PersonajeStats: FC<props> = ({ children }): ReactElement => {
 
   const getPersonajes = async (page: number): Promise<void> => {
     const url: string = `https://rickandmortyapi.com/api/character/?page=${page}`;
-    // await axios.get<{ results: IPersonaje[] }>(url).then((res) => {
-    //   const { data } = res;
-    //   console.log(state.personajes);
-
-    //   dispath({
-    //     type: 'SELECT_CHARACTERS',
-    //     payload: [...state.personajes, ...data.results],
-    //   });
-    // });
     const res = await axios.get<{ results: IPersonaje[] }>(url);
     const {
       data: { results },
@@ -77,10 +72,19 @@ const PersonajeStats: FC<props> = ({ children }): ReactElement => {
     const url: string = `https://rickandmortyapi.com/api/character/${id}`;
     await axios.get<IPersonaje>(url).then((res) => {
       const { data } = res;
+
       dispath({ type: 'SELECT_CHARACTER', payload: data });
     });
   };
 
+  const searchPersonaje = async (name: string): Promise<void> => {
+    const url: string = `https://rickandmortyapi.com/api/character/?name=${name}`;
+    const res = await axios.get<{ results: IPersonaje[] }>(url);
+    const {
+      data: { results },
+    } = res;
+    dispath({ type: 'SELECT_CHARACTERS', payload: [...results] });
+  };
   // const ctxValue = useMemo(
   //   () => ({
   //     personajes: state.personajes,
@@ -93,11 +97,13 @@ const PersonajeStats: FC<props> = ({ children }): ReactElement => {
 
   return (
     <AppContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         personajes: state.personajes,
         personaje: state.personaje,
         getPersonajes,
         getPersonaje,
+        searchPersonaje,
       }}
     >
       {children}

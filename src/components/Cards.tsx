@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../context/characters/reducers';
 import IPersonaje from '../types/Personaje.types';
 
 import './cards.css';
@@ -9,6 +10,8 @@ const Cards = ({ character }: { character: IPersonaje }) => {
   );
   const { id, name, image, species, status, origin } = character;
 
+  const { getPersonaje } = useContext(AppContext);
+
   useEffect(() => {
     if (status === 'Dead') {
       setStatusColor('text-red-600 fill-red-600');
@@ -18,7 +21,11 @@ const Cards = ({ character }: { character: IPersonaje }) => {
   }, []);
 
   return (
-    <button type="button" className="my-4 mx-auto">
+    <button
+      type="button"
+      className="my-4 mx-auto"
+      onClick={() => getPersonaje(id)}
+    >
       <div className="w-[290px] h-[360px] relative block transition-shadow duration-500 ease-in-out bg-[#e4ebf1] p-4 rounded-2xl cw__box--shadow">
         <div className="w-full text-center block">
           <h2 className="text-2xl font-opensans font-bold p-0">{name}</h2>
