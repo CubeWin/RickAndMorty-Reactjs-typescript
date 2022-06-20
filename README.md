@@ -1,0 +1,2 @@
+# RickAndMorty-Reactjs-typescript
+Incompleto
